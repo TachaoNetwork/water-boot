@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>water-boot-starter-parent</artifactId>
+		<groupId>com.zjtachao.fish.water</groupId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>water-boot-starter-common</artifactId>
+	<packaging>jar</packaging>
+	<name>water-boot-starter-common</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+
+		<com.alibaba.fastjson.version>1.2.9</com.alibaba.fastjson.version>
+		<com.alibaba.druid.version>1.1.6</com.alibaba.druid.version>
+		<mysql.connector.java.version>5.1.45</mysql.connector.java.version>
+	</properties>
+
+	<dependencies>
+		<!-- fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${com.alibaba.fastjson.version}</version>
+		</dependency>
+
+		<!-- druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${com.alibaba.druid.version}</version>
+		</dependency>
+
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connector.java.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Source attach plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>thirdparty</id>
+			<name>thirdparty</name>
+			<url>http://192.168.1.13:8081/nexus/content/repositories/thirdparty</url>
+		</repository>
+		<snapshotRepository>
+			<id>thirdparty</id>
+			<name>thirdparty</name>
+			<url>http://192.168.1.13:8081/nexus/content/repositories/thirdparty</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>
