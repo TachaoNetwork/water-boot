@@ -12,6 +12,8 @@ package com.zjtachao.fish.water.common.base.boot;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -28,6 +30,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages={"com.zjtachao.fish"})
 @MapperScan("com.zjtachao.fish")
 public class WaterBootApplication {
+
+    /** 日志 **/
+    public static final Logger logger = LoggerFactory.getLogger(WaterBootApplication.class);
 
     /**
      * 注册Jersey Bean
