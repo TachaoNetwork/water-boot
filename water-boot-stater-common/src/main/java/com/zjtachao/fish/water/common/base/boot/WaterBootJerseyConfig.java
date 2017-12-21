@@ -9,8 +9,9 @@
  ***************************************************************************/
 package com.zjtachao.fish.water.common.base.boot;
 
-import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -43,6 +44,7 @@ public class WaterBootJerseyConfig extends ResourceConfig{
         logger.info("开始注册对象");
 
         //支持下载
+        this.register(JacksonFeature.class);
         this.register(MultiPartFeature.class);
 
         //通用扫描类
