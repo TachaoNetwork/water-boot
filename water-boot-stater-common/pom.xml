@@ -43,6 +43,12 @@
 			<version>${mysql.connector.java.version}</version>
 		</dependency>
 
+		<!-- jersey media -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

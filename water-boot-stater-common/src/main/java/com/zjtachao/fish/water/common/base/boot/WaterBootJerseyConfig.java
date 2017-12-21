@@ -10,9 +10,9 @@
 package com.zjtachao.fish.water.common.base.boot;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
@@ -42,6 +42,9 @@ public class WaterBootJerseyConfig extends ResourceConfig{
         //注册对象
         logger.info("开始注册对象");
 
+        //支持下载
+        this.register(MultiPartFeature.class);
+
         //通用扫描类
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         // add more annotation filters if you need
@@ -51,7 +54,6 @@ public class WaterBootJerseyConfig extends ResourceConfig{
         scanner.findCandidateComponents("com.zjtachao.fish").stream().map(
                beanDefinition -> ClassUtils.resolveClassName(beanDefinition.getBeanClassName(), this.getClassLoader())
         ).collect(Collectors.toSet()));
-
 
         logger.info("结束注册对象");
 
