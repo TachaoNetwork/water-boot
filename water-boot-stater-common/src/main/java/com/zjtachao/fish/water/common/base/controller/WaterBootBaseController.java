@@ -9,8 +9,11 @@
  ***************************************************************************/
 package com.zjtachao.fish.water.common.base.controller;
 
+import com.zjtachao.fish.water.common.data.WaterRedis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 /**
  * Rest服务基类
@@ -22,5 +25,14 @@ public abstract class WaterBootBaseController {
 
     /** 日志 **/
     public static final Logger logger = LoggerFactory.getLogger(WaterBootBaseController.class);
+
+    /** Redis **/
+    @Autowired
+    public WaterRedis waterRedis;
+
+    /** 配置参数 **/
+    @Autowired
+    public Environment waterEnv;
+
 
 }
