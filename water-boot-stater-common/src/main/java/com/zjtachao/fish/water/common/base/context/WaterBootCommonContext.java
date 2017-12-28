@@ -10,7 +10,7 @@
 package com.zjtachao.fish.water.common.base.context;
 
 /**
- * 通用枚举类
+ * 请在此处添加注释
  *
  * @author <a href="mailto:dh@zjtachao.com">duhao</a>
  * @since 2.0
