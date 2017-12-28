@@ -15,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Rest服务基类
  *
@@ -33,6 +36,23 @@ public abstract class WaterBootBaseController {
     /** 配置参数 **/
     @Autowired
     public Environment waterEnv;
+
+
+    /**
+     * 添加cookie
+     * @param cookieid
+     * @param value
+     * @param time 时间以秒为单位
+     * @param response
+     * @return
+     */
+    public HttpServletResponse addCookie(String cookieid, String value , int time , HttpServletResponse response){
+        Cookie cookie = new Cookie(cookieid,value);
+        cookie.setMaxAge(time);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return response;
+    }
 
 
 }
