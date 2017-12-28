@@ -20,7 +20,7 @@ import java.util.Date;
  * @author <a href="mailto:dh@zjtachao.com">duhao</a>
  * @since 2.0
  */
-public class WaterBootBaseDomain implements Serializable{
+public abstract class WaterBootBaseDomain implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
