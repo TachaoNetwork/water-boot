@@ -19,6 +19,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+
+import javax.annotation.Resource;
 
 /**
  * Spring Boot 启动类
@@ -26,13 +31,24 @@ import org.springframework.context.annotation.ComponentScan;
  * @author <a href="mailto:dh@zjtachao.com">duhao</a>
  * @since 2.0
  */
+@EnableTransactionManagement
 @SpringBootApplication
 @ComponentScan(basePackages={"com.zjtachao.fish"})
 @MapperScan("com.zjtachao.fish")
-public class WaterBootApplication {
+public class WaterBootApplication implements TransactionManagementConfigurer{
 
     /** 日志 **/
     public static final Logger logger = LoggerFactory.getLogger(WaterBootApplication.class);
+
+    /** 事务 **/
+    @Resource
+    private PlatformTransactionManager txManager;
+
+    /** 默认事务 **/
+    @Override
+    public PlatformTransactionManager annotationDrivenTransactionManager() {
+        return txManager;
+    }
 
     /**
      * 注册Jersey Bean
