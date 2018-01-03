@@ -9,6 +9,8 @@
  ***************************************************************************/
 package com.zjtachao.fish.water.common.base.boot;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
 import org.mybatis.spring.annotation.MapperScan;
@@ -34,7 +36,7 @@ import javax.annotation.Resource;
 @EnableTransactionManagement
 @SpringBootApplication
 @ComponentScan(basePackages={"com.zjtachao.fish"})
-@MapperScan("com.zjtachao.fish")
+@MapperScan("com.zjtachao.fish.**.mapper")
 public class WaterBootApplication implements TransactionManagementConfigurer{
 
     /** 日志 **/
@@ -59,6 +61,16 @@ public class WaterBootApplication implements TransactionManagementConfigurer{
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new ServletContainer() ,"/*");
         registrationBean.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS , WaterBootJerseyConfig.class.getName());
         return registrationBean;
+    }
+
+    /**
+     * 初始化bean
+     * @return
+     */
+    @Bean
+    public DozerBeanMapper dozerMapper(){
+        DozerBeanMapper mapper = new DozerBeanMapper();
+        return mapper;
     }
 
     /**

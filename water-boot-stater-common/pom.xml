@@ -21,6 +21,7 @@
 		<com.alibaba.druid.version>1.1.6</com.alibaba.druid.version>
 		<mysql.connector.java.version>5.1.45</mysql.connector.java.version>
 		<org.apache.httpcomponents.version>4.5.4</org.apache.httpcomponents.version>
+		<net.sf.dozer.version>5.5.1</net.sf.dozer.version>
 	</properties>
 
 	<dependencies>
@@ -56,6 +57,13 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${org.apache.httpcomponents.version}</version>
+		</dependency>
+
+		<!-- dozer -->
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>${net.sf.dozer.version}</version>
 		</dependency>
 
 	</dependencies>
