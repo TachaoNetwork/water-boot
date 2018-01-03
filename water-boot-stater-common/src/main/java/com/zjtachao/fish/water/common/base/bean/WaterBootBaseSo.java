@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @author <a href="mailto:dh@zjtachao.com">duhao</a>
  * @since 2.0
  */
-public class WaterBootBaseSo implements Serializable{
+public abstract class WaterBootBaseSo implements Serializable{
 
     /**  序列化  */
     private static final long serialVersionUID = 1L;
