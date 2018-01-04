@@ -31,6 +31,17 @@ public class WaterBootResultBean<E> implements java.io.Serializable{
     /** 返回对象 **/
     public List<E> rst;
 
+    /** 返回数量 **/
+    public Long count = 0l;
+
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
+    }
+
     public Integer getCode() {
         return code;
     }
