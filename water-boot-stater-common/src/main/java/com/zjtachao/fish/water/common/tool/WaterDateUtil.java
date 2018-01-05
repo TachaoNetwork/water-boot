@@ -258,10 +258,16 @@ public class WaterDateUtil {
      * @param date2
      * @return
      */
-    public static boolean compareDate(Date date1, Date date2) {
+    public static int compareDate(Date date1, Date date2) {
         long day1 = date1.getTime();
         long day2 = date2.getTime();
-        return day1 <= day2;
+        int result = 0;
+        if(day1 > day2){
+            result = 1;
+        }else if(day1 < day2){
+            result = -1;
+        }
+        return result;
     }
 
     public static Map<String, Integer> getDateFields(Date date) {
