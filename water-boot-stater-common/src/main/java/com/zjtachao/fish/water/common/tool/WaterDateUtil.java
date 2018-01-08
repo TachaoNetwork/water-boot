@@ -149,6 +149,16 @@ public class WaterDateUtil {
 
     /**
      *
+     * 格式化时间
+     * @return
+     */
+    public static String getNowtimeStr(){
+        Calendar cal = Calendar.getInstance();
+        return date2Str(cal.getTime(), "yyyyMMddHHmmssSSS");
+    }
+
+    /**
+     *
      * 方法说明：给日期加上一天
      *
      * @param date
