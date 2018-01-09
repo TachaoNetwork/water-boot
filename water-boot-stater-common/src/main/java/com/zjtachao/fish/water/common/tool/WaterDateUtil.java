@@ -130,6 +130,22 @@ public class WaterDateUtil {
         return date2Str(date, DEFAULT_DATE_PATTERN);
     }
 
+
+    /**
+     *
+     * 方法说明：某个时间点添加分钟后的时间
+     *
+     * @param date
+     *            需要添加的时间
+     * @return
+     */
+    public static Date addMinutes(Date date, int minutes) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MINUTE, minutes);
+        return cal.getTime();
+    }
+
     /**
      *
      * 方法说明：某个时间点添加几天后的时间
