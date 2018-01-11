@@ -101,6 +101,61 @@ public class WaterHttpUtil {
     }
 
     /**
+     * 提交Http请求 POST
+     * @param url 地址
+     * @return
+     */
+    public static boolean httpPostForImg(String url , String content , String path) {
+        boolean flag = false;
+        HttpPost request = null;
+        CloseableHttpResponse response = null;
+        try{
+            StringBuffer buffer = new StringBuffer();
+            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+            request = new HttpPost(url);
+            StringEntity entity = new StringEntity(content , StandardCharsets.UTF_8.name());
+            entity.setContentType("application/json;charset=UTF-8");
+            request.setEntity(entity);
+
+            //设置请求超时时间和传输超时时间
+            RequestConfig requestConfig = RequestConfig.custom()
+                    .setSocketTimeout(5000)
+                    .setConnectionRequestTimeout(5000)
+                    .build();
+            request.setConfig(requestConfig);
+
+            HttpContext context = new BasicHttpContext();
+            response = httpClient.execute(request , context);
+
+            if((null != response) && (null != response.getStatusLine())
+                    && (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)) {
+                WaterImgUtil.saveToImgByInputStream(response.getEntity().getContent() , path);
+                flag = true;
+            }else {
+                logger.warn("响应错误，状态码："+response.getStatusLine().getStatusCode()+" URL："+url);
+            }
+        }catch (MalformedURLException ex){
+            logger.error("响应错误，URL："+url , ex);
+        }catch (IOException ex){
+            logger.error("IO错误，URL："+url , ex);
+        }catch (Exception ex){
+            logger.error("请求错误，URL："+url , ex);
+        }finally {
+            if(null != request){
+                request.releaseConnection();;
+            }
+            if(null != response){
+                try {
+                    response.close();
+                } catch (IOException ex) {
+                    logger.error("关闭链接错误",ex);
+                }
+            }
+        }
+        return flag;
+    }
+
+    /**
      * 提交Http请求 Get
      * @param url 地址
      * @return
