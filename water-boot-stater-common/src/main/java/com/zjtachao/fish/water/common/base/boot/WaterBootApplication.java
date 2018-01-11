@@ -21,6 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
@@ -37,6 +38,7 @@ import javax.annotation.Resource;
 @SpringBootApplication
 @ComponentScan(basePackages={"com.zjtachao.fish"})
 @MapperScan("com.zjtachao.fish.**.mapper")
+@EnableAsync
 public class WaterBootApplication implements TransactionManagementConfigurer{
 
     /** 日志 **/
