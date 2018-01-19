@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/water-boot.iml" filepath="$PROJECT_DIR$/.idea/water-boot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/water-boot-stater-common/water-boot-starter-common.iml" filepath="$PROJECT_DIR$/water-boot-stater-common/water-boot-starter-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/water-boot-stater-common/water-boot-stater-common.iml" filepath="$PROJECT_DIR$/water-boot-stater-common/water-boot-stater-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/water-boot-stater-parent/water-boot-stater-parent.iml" filepath="$PROJECT_DIR$/water-boot-stater-parent/water-boot-stater-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/water-boot-stater-parent/water-boot-stater-shell.iml" filepath="$PROJECT_DIR$/water-boot-stater-parent/water-boot-stater-shell.iml" />
     </modules>
   </component>
 </project>
