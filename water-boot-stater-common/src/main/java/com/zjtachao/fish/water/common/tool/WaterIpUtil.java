@@ -23,8 +23,16 @@ public class WaterIpUtil {
      * @return
      */
     public static boolean internalIp(String ip) {
-        byte[] addr = textToNumericFormatV4(ip);
-        return internalIp(addr);
+        boolean flag = false;
+        if(null != ip && !"".equals(ip)){
+            if("127.0.0.1".equals(ip)){
+                flag = true;
+            }else {
+                byte[] addr = textToNumericFormatV4(ip);
+                flag = internalIp(addr);
+            }
+        }
+        return flag;
     }
 
     /**
