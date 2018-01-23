@@ -53,6 +53,25 @@ public class WaterRegexValidateUtil {
 
     /**
      *
+     * 检测是数字和字母
+     *
+     * @param str
+     * @return
+     */
+    public static boolean checkNumericAndLetter(String str) {
+        boolean flag = false;
+        Pattern pattern = Pattern.compile("[0-9a-zA-Z]+");
+        if (null != str) {
+            Matcher match = pattern.matcher(str);
+            if (match.matches()) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     *
      * 验证字符是否是数字
      * @param str
      * @return

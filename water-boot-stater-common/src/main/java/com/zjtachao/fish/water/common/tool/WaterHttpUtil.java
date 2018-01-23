@@ -9,6 +9,7 @@
  ***************************************************************************/
 package com.zjtachao.fish.water.common.tool;
 
+import org.apache.http.Header;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -128,9 +129,31 @@ public class WaterHttpUtil {
             response = httpClient.execute(request , context);
 
             if((null != response) && (null != response.getStatusLine())
-                    && (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)) {
-                WaterImgUtil.saveToImgByInputStream(response.getEntity().getContent() , path);
-                flag = true;
+                    && (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) ) {
+                boolean imgFlag = false;
+                if(null != response.getAllHeaders() && response.getAllHeaders().length > 0){
+                    for(Header header : response.getAllHeaders()){
+                        if(header.getValue().equalsIgnoreCase("image/jpeg")){
+                            imgFlag = true;
+                            break;
+                        }
+                    }
+                }
+                if(imgFlag){
+                    WaterImgUtil.saveToImgByInputStream(response.getEntity().getContent() , path);
+                    flag = true;
+                }else {
+                    String result = null;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),StandardCharsets.UTF_8.name()));
+                    String output = null;
+                    while ((output = br.readLine()) != null){
+                        buffer.append(output);
+                    }
+                    result = buffer.toString();
+                    logger.warn("解析错误的图片："+result);
+                    flag = false;
+                }
+
             }else {
                 logger.warn("响应错误，状态码："+response.getStatusLine().getStatusCode()+" URL："+url);
             }
