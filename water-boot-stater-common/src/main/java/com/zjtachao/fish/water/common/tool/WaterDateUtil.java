@@ -164,6 +164,19 @@ public class WaterDateUtil {
     }
 
     /**
+     * 添加小时
+     * @param date
+     * @param hours
+     * @return
+     */
+    public static Date addHours(Date date, int hours) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.HOUR_OF_DAY, hours);
+        return cal.getTime();
+    }
+
+    /**
      *
      * 格式化时间
      * @return
