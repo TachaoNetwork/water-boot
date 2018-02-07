@@ -360,6 +360,23 @@ public class WaterRedis {
         return result;
     }
 
+    /**
+     *
+     * set新增
+     * @param key
+     * @param values
+     * @return
+     */
+    public long sdel(String key , String... values){
+        long result = 0;
+        try{
+            result = stringRedisTemplate.opsForSet().remove(key , values);
+        }catch (Exception e){
+            logger.error("sadd处理出错，错误信息为："+e.getMessage(), e);
+        }
+        return result;
+    }
+
 
     /**
      *
