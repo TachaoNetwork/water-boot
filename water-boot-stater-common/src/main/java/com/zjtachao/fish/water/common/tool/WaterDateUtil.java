@@ -341,6 +341,25 @@ public class WaterDateUtil {
 
     /**
      *
+     * 方法说明：将指定时间重置为当天凌晨时间
+     *
+     * @param date
+     * @return
+     */
+    public static Date moveBeginOfYear(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.MONTH, 0); // 得到前一个月
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 1);
+        return calendar.getTime();
+    }
+
+    /**
+     *
      * 获取当前时间一年的日期
      *
      * @return
