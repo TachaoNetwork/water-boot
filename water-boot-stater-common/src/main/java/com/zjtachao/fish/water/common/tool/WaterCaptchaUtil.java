@@ -68,6 +68,14 @@ public class WaterCaptchaUtil {
         String thirdCode = generateRandom(1, true);
         result = insertRandomStr(firstCode, secondCode);
         result = insertRandomStr(result, thirdCode);
+        //去除0的影响
+        String start = result.substring(0,1);
+        if("0".equals(start)){
+            String tmp = result;
+            String end = result.substring(1);
+            result = "8"+end;
+            System.out.println("start:"+tmp+" end:"+result);
+        }
         return result;
     }
 
