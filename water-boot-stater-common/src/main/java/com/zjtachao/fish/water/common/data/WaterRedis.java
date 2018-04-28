@@ -333,7 +333,7 @@ public class WaterRedis {
     public long increment(String key , long value , Date date){
         long result = 0;
         try{
-            stringRedisTemplate.opsForValue().increment(key , value);
+            result = stringRedisTemplate.opsForValue().increment(key , value);
             Date now = new Date();
             long seconds = date.getTime()/1000 - now.getTime()/1000;
             stringRedisTemplate.expire(key , seconds, TimeUnit.SECONDS);
