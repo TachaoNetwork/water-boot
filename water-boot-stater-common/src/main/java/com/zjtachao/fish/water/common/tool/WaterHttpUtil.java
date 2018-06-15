@@ -47,7 +47,7 @@ public class WaterHttpUtil {
      * @param content 内容
      * @return
      */
-    public static String httpPost(String url , String content) {
+    public static String httpPost(String url , String content , String format) {
         String result = null;
         HttpPost request = null;
         CloseableHttpResponse response = null;
@@ -56,7 +56,7 @@ public class WaterHttpUtil {
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             request = new HttpPost(url);
             StringEntity entity = new StringEntity(content , StandardCharsets.UTF_8.name());
-            entity.setContentType("application/json;charset=UTF-8");
+            entity.setContentType(format);
             request.setEntity(entity);
 
             //设置请求超时时间和传输超时时间
@@ -99,6 +99,17 @@ public class WaterHttpUtil {
             }
         }
         return result;
+    }
+
+
+    /**
+     * 提交Http请求 POST
+     * @param url 地址
+     * @param content 内容
+     * @return
+     */
+    public static String httpPost(String url , String content) {
+        return httpPost(url , content , "application/json;charset=UTF-8");
     }
 
     /**
