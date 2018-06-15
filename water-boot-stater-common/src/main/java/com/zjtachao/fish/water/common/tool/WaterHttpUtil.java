@@ -11,7 +11,9 @@ package com.zjtachao.fish.water.common.tool;
 
 import org.apache.http.Header;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * 网络请求工具类
@@ -110,6 +113,68 @@ public class WaterHttpUtil {
      */
     public static String httpPost(String url , String content) {
         return httpPost(url , content , "application/json;charset=UTF-8");
+    }
+
+
+    /**
+     * 提交Http请求 POST
+     * @param url 地址
+     * @param pairs 内容
+     * @return
+     */
+    public static String httpPost(String url , List<NameValuePair> pairs) {
+        String result = null;
+        HttpPost request = null;
+        CloseableHttpResponse response = null;
+        try{
+            StringBuffer buffer = new StringBuffer();
+            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+            request = new HttpPost(url);
+            if(null != pairs && !pairs.isEmpty()){
+                UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(pairs);
+                request.setEntity(urlEncodedFormEntity);
+            }
+
+            //设置请求超时时间和传输超时时间
+            RequestConfig requestConfig = RequestConfig.custom()
+                    .setSocketTimeout(5000)
+                    .setConnectionRequestTimeout(5000)
+                    .build();
+            request.setConfig(requestConfig);
+
+            HttpContext context = new BasicHttpContext();
+            response = httpClient.execute(request , context);
+
+            if((null != response) && (null != response.getStatusLine())
+                    && (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),StandardCharsets.UTF_8.name()));
+                String output = null;
+                while ((output = br.readLine()) != null){
+                    buffer.append(output);
+                }
+                result = buffer.toString();
+            }else {
+                logger.warn("响应错误，状态码："+response.getStatusLine().getStatusCode()+" URL："+url);
+            }
+        }catch (MalformedURLException ex){
+            logger.error("响应错误，URL："+url , ex);
+        }catch (IOException ex){
+            logger.error("IO错误，URL："+url , ex);
+        }catch (Exception ex){
+            logger.error("请求错误，URL："+url , ex);
+        }finally {
+            if(null != request){
+                request.releaseConnection();;
+            }
+            if(null != response){
+                try {
+                    response.close();
+                } catch (IOException ex) {
+                    logger.error("关闭链接错误",ex);
+                }
+            }
+        }
+        return result;
     }
 
     /**
