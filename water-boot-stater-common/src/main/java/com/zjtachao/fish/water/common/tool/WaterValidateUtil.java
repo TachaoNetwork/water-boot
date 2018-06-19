@@ -313,6 +313,28 @@ public class WaterValidateUtil {
         return flag;
     }
 
+
+    /**
+     *
+     * 验证浮点数
+     *
+     * @param str
+     * @return
+     */
+    public static boolean validateDouble(String str) {
+        boolean flag = false;
+        if ((null != str)) {
+            Pattern pattern = Pattern.compile("^\\d+(?:\\.\\d{1,4})?$");
+            if (null != str) {
+                Matcher match = pattern.matcher(str);
+                if (match.matches()) {
+                    flag = true;
+                }
+            }
+        }
+        return flag;
+    }
+
     /**
      *
      * 删除文件
