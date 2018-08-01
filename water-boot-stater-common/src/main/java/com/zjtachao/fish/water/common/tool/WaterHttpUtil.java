@@ -50,7 +50,7 @@ public class WaterHttpUtil {
      * @param content 内容
      * @return
      */
-    public static String httpPost(String url , String content , String format) {
+    public static String httpPost(String url , String content , String format , String resultForamt) {
         String result = null;
         HttpPost request = null;
         CloseableHttpResponse response = null;
@@ -74,7 +74,7 @@ public class WaterHttpUtil {
 
             if((null != response) && (null != response.getStatusLine())
                     && (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),StandardCharsets.UTF_8.name()));
+                BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),resultForamt));
                 String output = null;
                 while ((output = br.readLine()) != null){
                     buffer.append(output);
@@ -102,6 +102,16 @@ public class WaterHttpUtil {
             }
         }
         return result;
+    }
+
+    /**
+     * 提交Http请求 POST
+     * @param url 地址
+     * @param content 内容
+     * @return
+     */
+    public static String httpPost(String url , String content , String format) {
+        return httpPost(url , content , format ,"UTF-8");
     }
 
 
