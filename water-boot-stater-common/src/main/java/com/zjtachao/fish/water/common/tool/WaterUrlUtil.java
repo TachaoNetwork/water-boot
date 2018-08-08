@@ -31,10 +31,35 @@ public class WaterUrlUtil {
      * @param data
      * @return
      */
-    public static String decode(String data){
+    public static String decode(String data , String charset){
         String result = null;
         try {
-            result = URLDecoder.decode(data , "UTF-8");
+            result = URLDecoder.decode(data , charset);
+        }catch (Exception ex){
+            logger.error("解密错误，"+data);
+        }
+        return result;
+    }
+
+    /**
+     * 解密
+     * @param data
+     * @return
+     */
+    public static String decode(String data){
+        String result = decode(data , "UTF-8");
+        return result;
+    }
+
+    /**
+     * 解密
+     * @param data
+     * @return
+     */
+    public static String encode(String data , String charset){
+        String result = null;
+        try {
+            result = URLEncoder.encode(data , charset);
         }catch (Exception ex){
             logger.error("解密错误，"+data);
         }
@@ -47,12 +72,7 @@ public class WaterUrlUtil {
      * @return
      */
     public static String encode(String data){
-        String result = null;
-        try {
-            result = URLEncoder.encode(data , "UTF-8");
-        }catch (Exception ex){
-            logger.error("解密错误，"+data);
-        }
+        String result = encode(data , "UTF-8");
         return result;
     }
 
