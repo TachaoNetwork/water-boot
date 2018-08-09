@@ -58,9 +58,11 @@ public class WaterHttpUtil {
             StringBuffer buffer = new StringBuffer();
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             request = new HttpPost(url);
-            StringEntity entity = new StringEntity(content , StandardCharsets.UTF_8.name());
+            StringEntity entity = new StringEntity(content , resultForamt);
             entity.setContentType(format);
             request.setEntity(entity);
+            request.setHeader("Accept-Charset" , resultForamt);
+            request.setHeader("Content-Type",format);
 
             //设置请求超时时间和传输超时时间
             RequestConfig requestConfig = RequestConfig.custom()
