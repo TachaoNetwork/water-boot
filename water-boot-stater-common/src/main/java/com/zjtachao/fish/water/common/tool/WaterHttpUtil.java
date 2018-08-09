@@ -60,6 +60,7 @@ public class WaterHttpUtil {
             request = new HttpPost(url);
             StringEntity entity = new StringEntity(content , resultForamt);
             entity.setContentType(format);
+            entity.setContentEncoding(resultForamt);
             request.setEntity(entity);
             request.setHeader("Accept-Charset" , resultForamt);
             request.setHeader("Content-Type",format);
