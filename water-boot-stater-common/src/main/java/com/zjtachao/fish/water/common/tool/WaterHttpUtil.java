@@ -9,9 +9,7 @@
  ***************************************************************************/
 package com.zjtachao.fish.water.common.tool;
 
-import org.apache.http.Header;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -58,12 +56,16 @@ public class WaterHttpUtil {
             StringBuffer buffer = new StringBuffer();
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             request = new HttpPost(url);
+            request.setHeader("Accept-Charset", resultForamt);
+            request.setHeader("Content-type", format);// 设置编码
+
             StringEntity entity = new StringEntity(content , resultForamt);
             entity.setContentType(format);
             entity.setContentEncoding(resultForamt);
             request.setEntity(entity);
-            request.setHeader("Accept-Charset" , resultForamt);
-            request.setHeader("Content-Type",format);
+
+
+
 
             //设置请求超时时间和传输超时时间
             RequestConfig requestConfig = RequestConfig.custom()
