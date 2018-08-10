@@ -148,6 +148,21 @@ public class WaterDateUtil {
 
     /**
      *
+     * 方法说明：某个时间点添加分钟后的时间
+     *
+     * @param date
+     *            需要添加的时间
+     * @return
+     */
+    public static Date addSeconds(Date date, int seconds) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.SECOND, seconds);
+        return cal.getTime();
+    }
+
+    /**
+     *
      * 方法说明：某个时间点添加几天后的时间
      *
      * @param date
