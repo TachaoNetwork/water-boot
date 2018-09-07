@@ -462,6 +462,22 @@ public class WaterRedis {
         return result;
     }
 
+    /**
+     *
+     * 随机获得数量的元素
+     * @param key
+     * @return
+     */
+    public List<String> srandom(String key , Integer count){
+        List<String> result = null;
+        try {
+            result = stringRedisTemplate.opsForSet().randomMembers(key , count);
+        } catch (Exception e){
+            logger.error("srandom处理出错，错误信息为："+e.getMessage(), e);
+        }
+        return result;
+    }
+
 
     /**
      *
