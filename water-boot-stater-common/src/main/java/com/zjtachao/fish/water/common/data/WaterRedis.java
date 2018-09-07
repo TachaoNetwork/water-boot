@@ -345,6 +345,22 @@ public class WaterRedis {
 
     /**
      *
+     * set数量
+     * @param key
+     * @return
+     */
+    public long ssize(String key){
+        long result = 0;
+        try{
+            result = stringRedisTemplate.opsForSet().size(key);
+        }catch (Exception e){
+            logger.error("sadd处理出错，错误信息为："+e.getMessage(), e);
+        }
+        return result;
+    }
+
+    /**
+     *
      * set新增
      * @param key
      * @param values
@@ -372,7 +388,7 @@ public class WaterRedis {
         try{
             result = stringRedisTemplate.opsForSet().remove(key , values);
         }catch (Exception e){
-            logger.error("sadd处理出错，错误信息为："+e.getMessage(), e);
+            logger.error("sdel处理出错，错误信息为："+e.getMessage(), e);
         }
         return result;
     }
@@ -390,6 +406,24 @@ public class WaterRedis {
             result = stringRedisTemplate.opsForSet().members(key);
         }catch (Exception e){
             logger.error("smembers处理出错，错误信息为："+e.getMessage(), e);
+        }
+        return result;
+    }
+
+    /**
+     *
+     * 移动数据
+     * @param sourcekey
+     * @param value
+     * @param targetkey
+     * @return
+     */
+    public boolean smove(String sourcekey , String value , String targetkey){
+        boolean result = false;
+        try {
+            result = stringRedisTemplate.opsForSet().move(sourcekey , value ,targetkey);
+        }catch (Exception e){
+            logger.error("smove处理出错，错误信息为："+e.getMessage(), e);
         }
         return result;
     }
