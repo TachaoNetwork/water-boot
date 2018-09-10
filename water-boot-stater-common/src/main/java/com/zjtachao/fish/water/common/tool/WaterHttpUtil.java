@@ -42,6 +42,7 @@ public class WaterHttpUtil {
     /** 日志 **/
     public static final Logger logger = LoggerFactory.getLogger(WaterHttpUtil.class);
 
+
     /**
      * 提交Http请求 POST
      * @param url 地址
@@ -63,9 +64,6 @@ public class WaterHttpUtil {
             entity.setContentType(format);
             entity.setContentEncoding(resultForamt);
             request.setEntity(entity);
-
-
-
 
             //设置请求超时时间和传输超时时间
             RequestConfig requestConfig = RequestConfig.custom()
