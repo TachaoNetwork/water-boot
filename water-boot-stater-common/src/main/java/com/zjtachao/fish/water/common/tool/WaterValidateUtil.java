@@ -78,7 +78,7 @@ public class WaterValidateUtil {
      * @return
      */
     public static boolean validatePhoneStr(String str) {
-        String regex = "^1(3[0-9]|4[57]|5[0-9]|7[0-9]|8[0-9])\\d{8}$";
+        String regex = "^1(3[0-9]|4[0-9]|5[0-9]|7[0-9]|8[0-9])\\d{8}$";
         return match(regex, str);
     }
 
@@ -176,7 +176,7 @@ public class WaterValidateUtil {
      * @return
      */
     public static boolean isMobileLegal(String str) {
-        String regExp = "^((13[0-9])|(15[0-9])|(18[0-9])|(17[0-9])|(19[0-9])|(147))\\d{8}$";
+        String regExp = "^((13[0-9])|(14[0-9])|(15[0-9])|(18[0-9])|(17[0-9])|(19[0-9]))\\d{8}$";
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(str);
         return m.matches();
