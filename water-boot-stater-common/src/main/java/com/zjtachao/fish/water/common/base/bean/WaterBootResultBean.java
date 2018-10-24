@@ -63,9 +63,11 @@ public class WaterBootResultBean<E> implements java.io.Serializable{
     }
 
     public void setRst(E rst) {
-        List<E> list = new ArrayList<E>();
-        list.add(rst);
-        this.rst = list;
+        if(null != rst){
+            List<E> list = new ArrayList<E>();
+            list.add(rst);
+            this.rst = list;
+        }
     }
 
     public void setRst(List<E> rst) {
