@@ -92,4 +92,48 @@ public class WaterUploadUtil {
         return uploadFile(path, inputStream, imageName, "images");
     }
 
+    /**
+     *
+     * 上传图片的方法
+     * @return
+     * @throws IOException
+     */
+    public static String uploadFile(InputStream inputStream,  String folderPrefix , String dateFormat , String fileName) throws IOException {
+        String imagePath = folderPrefix;
+        if(null != dateFormat && !"".equals(dateFormat)){
+            Calendar cal = Calendar.getInstance();
+            if(dateFormat.contains("Y")){
+                imagePath += "/" + cal.get(Calendar.YEAR);
+            }
+            if(dateFormat.contains("M")){
+                String month = String.valueOf(cal.get(Calendar.MONTH)+1);
+                month = month.length() == 1 ? "0" + month : month;
+                imagePath += "/" + month;
+            }
+            if(dateFormat.contains("D")){
+                String day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+                day = day.length() == 1 ? "0" + day : day;;
+                imagePath += "/" + day;
+            }
+        }
+
+        File file = new File(imagePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        /*设置目标文件*/
+        String targetImageName = WaterUUIDUtil.getUUID() + fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+        File target = new File(imagePath + "/" + targetImageName);
+        /*创建输出流*/
+        OutputStream os = new FileOutputStream(target);
+        byte[] buffer = new byte[1024];
+        int length = 0;
+        while ((length = inputStream.read(buffer)) > 0) {
+            os.write(buffer, 0, length);
+        }
+        inputStream.close();
+        os.close();
+        return imagePath + "/" + targetImageName;
+    }
+
 }
