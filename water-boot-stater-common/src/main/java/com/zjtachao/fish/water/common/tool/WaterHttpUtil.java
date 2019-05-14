@@ -49,7 +49,7 @@ public class WaterHttpUtil {
      * @param content 内容
      * @return
      */
-    public static String httpPost(String url , String content , String format , String resultForamt) {
+    public static String httpPost(String url , String content , String format , String resultForamt , Integer timeout) {
         String result = null;
         HttpPost request = null;
         CloseableHttpResponse response = null;
@@ -67,8 +67,8 @@ public class WaterHttpUtil {
 
             //设置请求超时时间和传输超时时间
             RequestConfig requestConfig = RequestConfig.custom()
-                    .setSocketTimeout(5000)
-                    .setConnectionRequestTimeout(5000)
+                    .setSocketTimeout(timeout)
+                    .setConnectionRequestTimeout(timeout)
                     .build();
             request.setConfig(requestConfig);
 
@@ -113,8 +113,28 @@ public class WaterHttpUtil {
      * @param content 内容
      * @return
      */
+    public static String httpPost(String url , String content , String format , String resultForamt) {
+        return httpPost(url, content, format, resultForamt, 5000);
+    }
+
+    /**
+     * 提交Http请求 POST
+     * @param url 地址
+     * @param content 内容
+     * @return
+     */
     public static String httpPost(String url , String content , String format) {
         return httpPost(url , content , format ,"UTF-8");
+    }
+
+    /**
+     * 提交Http请求 POST
+     * @param url 地址
+     * @param content 内容
+     * @return
+     */
+    public static String httpPost(String url , String content, Integer timeout) {
+        return httpPost(url , content , "application/json;charset=UTF-8", "UTF-8" , timeout);
     }
 
 
