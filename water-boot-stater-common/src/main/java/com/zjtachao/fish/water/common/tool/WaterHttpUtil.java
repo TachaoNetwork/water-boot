@@ -344,6 +344,80 @@ public class WaterHttpUtil {
         return result;
     }
 
+    /**
+     * 提交Http请求 Get
+     * @param url 地址
+     * @return
+     */
+    public static boolean httpGetForImg(String url, String path) {
+        boolean flag = false;
+        HttpGet request = null;
+        CloseableHttpResponse response = null;
+        try{
+            StringBuffer buffer = new StringBuffer();
+            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+            request = new HttpGet(url);
+
+
+            //设置请求超时时间和传输超时时间
+            RequestConfig requestConfig = RequestConfig.custom()
+                    .setSocketTimeout(5000)
+                    .setConnectionRequestTimeout(5000)
+                    .build();
+            request.setConfig(requestConfig);
+
+            HttpContext context = new BasicHttpContext();
+            response = httpClient.execute(request , context);
+
+            if((null != response) && (null != response.getStatusLine())
+                    && (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)) {
+                boolean imgFlag = false;
+                if(null != response.getAllHeaders() && response.getAllHeaders().length > 0){
+                    for(Header header : response.getAllHeaders()){
+                        if(header.getValue().toLowerCase().contains("image/")){
+                            imgFlag = true;
+                            break;
+                        }
+                    }
+                }
+                if(imgFlag){
+                    WaterImgUtil.saveToImgByInputStream(response.getEntity().getContent() , path);
+                    flag = true;
+                }else {
+                    String result = null;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),StandardCharsets.UTF_8.name()));
+                    String output = null;
+                    while ((output = br.readLine()) != null){
+                        buffer.append(output);
+                    }
+                    result = buffer.toString();
+                    logger.warn("解析错误的图片："+result);
+                    flag = false;
+                }
+            }else {
+                logger.warn("响应错误，状态码："+response.getStatusLine().getStatusCode()+" URL："+url);
+            }
+        }catch (MalformedURLException ex){
+            logger.error("响应错误，URL："+url , ex);
+        }catch (IOException ex){
+            logger.error("IO错误，URL："+url , ex);
+        }catch (Exception ex){
+            logger.error("请求错误，URL："+url , ex);
+        }finally {
+            if(null != request){
+                request.releaseConnection();;
+            }
+            if(null != response){
+                try {
+                    response.close();
+                } catch (IOException ex) {
+                    logger.error("关闭链接错误",ex);
+                }
+            }
+        }
+        return flag;
+    }
+
     public static void main(String [] args){
         String getUrl = "http://127.0.0.1:8080/water/demo/test/redis/hello/123121";
         System.out.print(httpGet(getUrl));
