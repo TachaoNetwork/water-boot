@@ -242,7 +242,7 @@ public class WaterHttpUtil {
                 boolean imgFlag = false;
                 if(null != response.getAllHeaders() && response.getAllHeaders().length > 0){
                     for(Header header : response.getAllHeaders()){
-                        if(header.getValue().equalsIgnoreCase("image/jpeg")){
+                        if(header.getValue().toLowerCase().contains("image/")){
                             imgFlag = true;
                             break;
                         }
