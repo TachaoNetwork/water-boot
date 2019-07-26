@@ -6,15 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="water-boot-starter-common" />
         <module name="water-boot-stater-common" />
+        <module name="water-boot-starter-common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="water-boot-starter-common" target="1.8" />
       <module name="water-boot-stater-common" target="1.8" />
       <module name="water-boot-stater-parent" target="1.8" />
-      <module name="water-boot-stater-shell" target="1.8" />
+      <module name="water-boot-stater-shell" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

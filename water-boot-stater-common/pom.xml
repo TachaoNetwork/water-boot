@@ -55,6 +55,13 @@
 		<!-- http client -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>${org.apache.httpcomponents.version}</version>
+		</dependency>
+
+		<!-- http client -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${org.apache.httpcomponents.version}</version>
 		</dependency>
