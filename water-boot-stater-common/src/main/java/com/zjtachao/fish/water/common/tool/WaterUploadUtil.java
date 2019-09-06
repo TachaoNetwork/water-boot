@@ -9,6 +9,8 @@
  ***************************************************************************/
 package com.zjtachao.fish.water.common.tool;
 
+import com.zjtachao.fish.water.common.base.bean.WaterBootUploadBean;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -39,9 +41,9 @@ public class WaterUploadUtil {
      */
     public static String uploadFile(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
         String result = null;
-        Map<String,Object> map = handleFile(path, inputStream, imageName, folderPrefix);
-        if(null != map && map.containsKey("key")){
-            result = map.get("key").toString();
+        WaterBootUploadBean bean = handleFile(path, inputStream, imageName, folderPrefix);
+        if(null != bean && null != bean.getPath()){
+            result = bean.getPath();
         }
         return result;
     }
@@ -57,11 +59,25 @@ public class WaterUploadUtil {
      */
     public static File storageFile(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
         File result = null;
-        Map<String,Object> map = handleFile(path, inputStream, imageName, folderPrefix);
-        if(null != map && map.containsKey("value")){
-            result = (File)map.get("value");
+        WaterBootUploadBean bean = handleFile(path, inputStream, imageName, folderPrefix);
+        if(null != bean && null != bean.getFile()){
+            result = bean.getFile();
         }
         return result;
+    }
+
+    /**
+     * 存储文件
+     * @param path
+     * @param inputStream
+     * @param imageName
+     * @param folderPrefix
+     * @return
+     * @throws IOException
+     */
+    public static WaterBootUploadBean storageFileMap(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
+        WaterBootUploadBean bean = handleFile(path, inputStream, imageName, folderPrefix);
+        return bean;
     }
 
 
@@ -74,8 +90,7 @@ public class WaterUploadUtil {
      * @return
      * @throws IOException
      */
-    private static Map<String,Object> handleFile(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
-        Map<String,Object> map = new HashMap<String,Object>();
+    private static WaterBootUploadBean handleFile(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
         int random = (int)(Math.random()*900)+100;
         /*设置上传目录*/
         Calendar cal=Calendar.getInstance();
@@ -103,9 +118,9 @@ public class WaterUploadUtil {
         inputStream.close();
         os.close();
         String key = "/" + imageUrlPath + "/" + targetImageName;
-        map.put("key", key);
-        map.put("value", target);
-        return map;
+
+        WaterBootUploadBean uploadBean = new WaterBootUploadBean(key, target);
+        return uploadBean;
     }
 
 
