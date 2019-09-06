@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -36,6 +38,44 @@ public class WaterUploadUtil {
      * @throws IOException
      */
     public static String uploadFile(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
+        String result = null;
+        Map<String,Object> map = handleFile(path, inputStream, imageName, folderPrefix);
+        if(null != map && map.containsKey("key")){
+            result = map.get("key").toString();
+        }
+        return result;
+    }
+
+    /**
+     * 存储文件
+     * @param path
+     * @param inputStream
+     * @param imageName
+     * @param folderPrefix
+     * @return
+     * @throws IOException
+     */
+    public static File storageFile(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
+        File result = null;
+        Map<String,Object> map = handleFile(path, inputStream, imageName, folderPrefix);
+        if(null != map && map.containsKey("value")){
+            result = (File)map.get("value");
+        }
+        return result;
+    }
+
+
+    /**
+     * 返回对象
+     * @param path
+     * @param inputStream
+     * @param imageName
+     * @param folderPrefix
+     * @return
+     * @throws IOException
+     */
+    private static Map<String,Object> handleFile(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
         int random = (int)(Math.random()*900)+100;
         /*设置上传目录*/
         Calendar cal=Calendar.getInstance();
@@ -62,8 +102,12 @@ public class WaterUploadUtil {
         }
         inputStream.close();
         os.close();
-        return "/" + imageUrlPath + "/" + targetImageName;
+        String key = "/" + imageUrlPath + "/" + targetImageName;
+        map.put("key", key);
+        map.put("value", target);
+        return map;
     }
+
 
 
     /**
