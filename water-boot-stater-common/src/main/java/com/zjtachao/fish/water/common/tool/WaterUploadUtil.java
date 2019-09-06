@@ -75,7 +75,7 @@ public class WaterUploadUtil {
      * @return
      * @throws IOException
      */
-    public static WaterBootUploadBean storageFileMap(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
+    public static WaterBootUploadBean storageFileBean(String path, InputStream inputStream, String imageName , String folderPrefix) throws IOException {
         WaterBootUploadBean bean = handleFile(path, inputStream, imageName, folderPrefix);
         return bean;
     }
