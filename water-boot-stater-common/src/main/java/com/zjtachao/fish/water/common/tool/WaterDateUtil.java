@@ -344,6 +344,23 @@ public class WaterDateUtil {
      * @param date
      * @return
      */
+    public static Date moveEndOfDay(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
+
+    /**
+     *
+     * 方法说明：将指定时间重置为当天凌晨时间
+     *
+     * @param date
+     * @return
+     */
     public static Date moveBeginOfDay(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
