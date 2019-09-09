@@ -115,8 +115,9 @@ public class WaterUploadUtil {
         while ((length = inputStream.read(buffer)) > 0) {
             os.write(buffer, 0, length);
         }
-        inputStream.close();
+        os.flush();
         os.close();
+        inputStream.close();
         String key = "/" + imageUrlPath + "/" + targetImageName;
 
         WaterBootUploadBean uploadBean = new WaterBootUploadBean(key, target);
@@ -190,8 +191,9 @@ public class WaterUploadUtil {
         while ((length = inputStream.read(buffer)) > 0) {
             os.write(buffer, 0, length);
         }
-        inputStream.close();
+        os.flush();
         os.close();
+        inputStream.close();
         return imagePath + "/" + targetImageName;
     }
 
