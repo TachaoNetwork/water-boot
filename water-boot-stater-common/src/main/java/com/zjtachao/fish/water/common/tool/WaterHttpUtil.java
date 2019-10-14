@@ -49,14 +49,13 @@ public class WaterHttpUtil {
     /** 日志 **/
     public static final Logger logger = LoggerFactory.getLogger(WaterHttpUtil.class);
 
-
     /**
      * 提交Http请求 POST
      * @param url 地址
      * @param content 内容
      * @return
      */
-    public static String httpPost(String url , String content , String format , String resultForamt , Integer timeout) {
+    public static String httpPost(String url , String content , String format , String resultFormat , Integer timeout , Map<String, String> headerMap) {
         String result = null;
         HttpPost request = null;
         CloseableHttpResponse response = null;
@@ -64,12 +63,18 @@ public class WaterHttpUtil {
             StringBuffer buffer = new StringBuffer();
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             request = new HttpPost(url);
-            request.setHeader("Accept-Charset", resultForamt);
-            request.setHeader("Content-type", format);// 设置编码
+            request.setHeader("Accept-Charset", resultFormat);
+            request.setHeader("Content-Type", format);// 设置编码
 
-            StringEntity entity = new StringEntity(content , resultForamt);
+            if(null != headerMap && !headerMap.isEmpty()){
+                for(String key : headerMap.keySet()){
+                    request.addHeader(key , headerMap.get(key));
+                }
+            }
+
+            StringEntity entity = new StringEntity(content , resultFormat);
             entity.setContentType(format);
-            entity.setContentEncoding(resultForamt);
+            entity.setContentEncoding(resultFormat);
             request.setEntity(entity);
 
             //设置请求超时时间和传输超时时间
@@ -84,7 +89,7 @@ public class WaterHttpUtil {
 
             if((null != response) && (null != response.getStatusLine())
                     && (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),resultForamt));
+                BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),resultFormat));
                 String output = null;
                 while ((output = br.readLine()) != null){
                     buffer.append(output);
@@ -112,6 +117,17 @@ public class WaterHttpUtil {
             }
         }
         return result;
+    }
+
+
+    /**
+     * 提交Http请求 POST
+     * @param url 地址
+     * @param content 内容
+     * @return
+     */
+    public static String httpPost(String url , String content , String format , String resultFormat , Integer timeout) {
+        return httpPost(url, content, format, resultFormat, 5000 , null);
     }
 
     /**
@@ -153,6 +169,16 @@ public class WaterHttpUtil {
      */
     public static String httpPost(String url , String content) {
         return httpPost(url , content , "application/json;charset=UTF-8");
+    }
+
+    /**
+     * 提交Http请求 POST
+     * @param url 地址
+     * @param content 内容
+     * @return
+     */
+    public static String httpPost(String url , String content, Map<String, String> headerMap) {
+        return httpPost(url, content, "application/json;charset=UTF-8", "UTF-8", 5000 , headerMap);
     }
 
 
@@ -377,7 +403,16 @@ public class WaterHttpUtil {
      * @param url 地址
      * @return
      */
-    public static String httpGet(String url) {
+    public static String httpGet(String url){
+        return httpGet(url, null);
+    }
+
+    /**
+     * 提交Http请求 Get
+     * @param url 地址
+     * @return
+     */
+    public static String httpGet(String url, Map<String, String> headerMap) {
         String result = null;
         HttpGet request = null;
         CloseableHttpResponse response = null;
@@ -385,6 +420,12 @@ public class WaterHttpUtil {
             StringBuffer buffer = new StringBuffer();
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
             request = new HttpGet(url);
+
+            if(null != headerMap && !headerMap.isEmpty()){
+                for(String key : headerMap.keySet()){
+                    request.addHeader(key, headerMap.get(key));
+                }
+            }
 
 
             //设置请求超时时间和传输超时时间
