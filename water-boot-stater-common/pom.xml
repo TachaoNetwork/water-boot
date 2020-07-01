@@ -19,7 +19,7 @@
 
 		<com.alibaba.fastjson.version>1.2.59</com.alibaba.fastjson.version>
 		<com.alibaba.druid.version>1.1.6</com.alibaba.druid.version>
-		<mysql.connector.java.version>5.1.45</mysql.connector.java.version>
+		<mysql.connector.java.version>8.0.16</mysql.connector.java.version>
 		<org.apache.httpcomponents.version>4.5.4</org.apache.httpcomponents.version>
 		<net.sf.dozer.version>5.5.1</net.sf.dozer.version>
 	</properties>
